@@ -3,11 +3,13 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
+var vuxLoader = require('vux-loader')
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-module.exports = {
+const originalConfig = {
   entry: {
     app: './src/main.js'
   },
@@ -56,3 +58,15 @@ module.exports = {
     ]
   }
 }
+
+module.exports = vuxLoader.merge(originalConfig, {
+  plugins: [
+    {
+      name: 'vux-ui'
+    },
+    {
+      name: 'less-theme',
+      path: 'src/styles/theme.less'
+    }
+  ]
+})
